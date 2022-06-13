@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			// 1
+			let todo1 = 99;
+			console.log(typeof todo1); // number
+
+			// 2
+			const months = [
+				'January',
+				'February',
+				'March',
+				'April',
+				'May',
+				'June',
+				'July',
+				'August',
+				'September',
+				'October',
+				'November',
+				'December',
+			];
+
+			let month = months[new Date().getMonth()];
+			let dayOfMonth = new Date().getDate();
+			let year = new Date().getFullYear();
+			console.log(`${month} ${dayOfMonth}, ${year}`); // July 27, 2022
+
+			// 3
+			let result = 4 + 5 * 3;
+			console.log(result); // 19
+
+			let results = (4 + 5) * 3;
+			console.log(results); //27
+
+			// 4
+			let age = 33;
+			let message = 'I am' + age + ' years old';
+			console.log(typeof message); // string
+		</script>
+	</body>
+</html>
