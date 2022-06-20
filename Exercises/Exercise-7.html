@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Exercise 7</title>
+	</head>
+	<body>
+		<script>
+			/* Exercise 1
+			Write a function toUpper that takes 1 parameter, an array of strings,
+			and console.logs a new array with all the strings capitalized.*/
+			function toUpper(array) {
+				let capitalize = [];
+
+				array.forEach(function (string) {
+					capitalize.push(string.toUpperCase());
+				});
+				console.log(capitalize);
+			}
+			toUpper(['hello', 'world']);
+
+			/*Exercise 2. Write a function arrayDouble that takes an array and console.logs
+			a new array with every value repeated twice. */
+			function arrayDouble(strArray) {
+				let double = [];
+
+				strArray.forEach(function (str) {
+					double.push(str);
+					double.push(str);
+				});
+				console.log(double);
+			}
+			arrayDouble(['bark', 'meow']);
+
+			/*Exercise 3. Write a function arraySum that takes an array of numbers and
+			console.logs the sum of the numbers.*/
+
+			function arraySum(number) {
+				let total = 0;
+
+				number.forEach(function (num) {
+					total = total + num;
+				});
+				console.log(total);
+			}
+			arraySum([1, 2, 3]);
+			arraySum([5, -2, 7, 0]);
+		</script>
+	</body>
+</html>
