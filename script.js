@@ -1,4 +1,4 @@
-let todos = ['Get groceries', 'Clean bike', 'Make dinner'];
+const todos = ['Get groceries', 'Clean bike', 'Make dinner'];
 todos.push('another todo');
 
 todos.forEach(function (todoTitle) {
