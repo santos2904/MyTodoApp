@@ -21,6 +21,10 @@
 		<div id="Counter" style="display: inline">0</div>
 		<button onclick="countUp()">Up</button>
 		<button onclick="countDown()">Down</button>
+		<hr />
+		<p>Create a button that takes what's inside the textbox, puts it in a div and adds the div to the page.</p>
+		<input type="text" id="text-box" />
+		<button onclick="showText()">Show Text</button>
 		<script>
 			/* Exercise 1
 			Set up a <button id="todo-button">To Do</button> so that when you click the button, 
@@ -37,7 +41,7 @@
 			let count = 0;
 			function increment() {
 				const counter = document.getElementById('counter');
-				count = count + 1;
+				count += 1;
 				counter.innerText = count;
 			}
 
@@ -45,7 +49,6 @@
       Set up the same counter as above, but with another button "Down", 
       that decreases the count by one. (hint: use count = count - 1;) */
 			let Count = 0;
-
 			function countUp() {
 				Count += 1;
 				update();
@@ -58,6 +61,16 @@
 			function update() {
 				const Counter = document.getElementById('Counter');
 				Counter.innerText = Count;
+			}
+
+			/* Exercise 4 Create a button that takes what's inside the textbox, 
+      puts it in a div and adds the div to the page. */
+			function showText() {
+				const textBox = document.getElementById('text-box');
+				const input = textBox.value;
+				const div = document.createElement('div');
+				div.innerText = input;
+				document.body.append(div);
 			}
 		</script>
 	</body>
