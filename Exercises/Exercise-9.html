@@ -12,17 +12,44 @@
 		<button onclick="addCart('Eggs')">Eggs</button>
 		<button onclick="Clear()">Clear</button>
 		<div id="cart"></div>
+		<hr style="margin-top: 100px" />
+		<input type="text" id="textBox" />
+		<button onclick="convertCm()">Convert to cm</button>
+		<button onclick="convertIn()">Convert to inch</button>
+		<div id="result"></div>
 		<script>
+			//Exercise 1. Create a shopping cart. and 4 buttons labeled "Apple", "Tomato", "Eggs", and "Clear".
+			//When clicking the first 3 buttons, add a div inside the <div id="cart"> containing your food selection.
+			//When clicking "Clear" remove all items from the cart.
 			const cart = document.getElementById('cart');
-			function addCart(item) {
+			addCart = (item) => {
 				const list = document.createElement('div');
 				list.innerText = item;
 				cart.appendChild(list);
-			}
+			};
 
-			function Clear() {
-				cart.innerHTML = '';
-			}
+			Clear = () => (cart.innerHTML = '');
+
+			//Exercise 2. Create a cm-inch converter.
+			const input = document.getElementById('textBox');
+
+			convertCm = () => {
+				const value = input.value;
+				const conversion = value * 2.54;
+				const decimal = conversion.toFixed(2);
+				const result = document.createElement('div');
+				result.innerText = decimal;
+				document.body.append(result);
+			};
+
+			convertIn = () => {
+				const value = input.value;
+				const conversion = value / 2.54;
+				const decimal = conversion.toFixed(2);
+				const result = document.createElement('div');
+				result.innerText = decimal;
+				document.body.append(result);
+			};
 		</script>
 	</body>
 </html>
