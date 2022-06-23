@@ -28,31 +28,31 @@
 		<script>
 			/* Exercise 1
 			Set up a <button id="todo-button">To Do</button> so that when you click the button, 
-      he text inside changes to "Done" (hint: use .innerText) */
-			function changeText() {
+      		the text inside changes to "Done" (hint: use .innerText) */
+			changeText = () => {
 				const button = document.getElementById('todo-button');
 				button.innerText = 'Done';
-			}
+			};
 
 			/* Exercise 2
-      Set up a <div id="counter">0</div>, a button with the label "Up", 
-      and a variable: let count = 0; so that when clicking the button, 
-      the number in the div increases by 1. */
+			Set up a <div id="counter">0</div>, a button with the label "Up", 
+			and a variable: let count = 0; so that when clicking the button, 
+			the number in the div increases by 1. */
 			let count = 0;
-			function increment() {
+			increment = () => {
 				const counter = document.getElementById('counter');
 				count += 1;
 				counter.innerText = count;
-			}
+			};
 
 			/* Exercise 3
-      Set up the same counter as above, but with another button "Down", 
-      that decreases the count by one. (hint: use count = count - 1;) */
+			Set up the same counter as above, but with another button "Down", 
+			that decreases the count by one. (hint: use count = count - 1;) */
 			let Count = 0;
-			function countUp() {
+			countUp = () => {
 				Count += 1;
 				update();
-			}
+			};
 			function countDown() {
 				Count -= 1;
 				update();
@@ -64,14 +64,14 @@
 			}
 
 			/* Exercise 4 Create a button that takes what's inside the textbox, 
-      puts it in a div and adds the div to the page. */
-			function showText() {
+     		puts it in a div and adds the div to the page. */
+			showText = () => {
 				const textBox = document.getElementById('text-box');
 				const input = textBox.value;
 				const div = document.createElement('div');
 				div.innerText = input;
 				document.body.append(div);
-			}
+			};
 		</script>
 	</body>
 </html>
