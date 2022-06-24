@@ -9,17 +9,41 @@
 	<body>
 		<div id="receipt"></div>
 		<script>
-			function cartTotal(cartArray) {
+			/*Exercise 1
+			Write a function cartTotal that takes an array of objects 
+			cartArray where each object contains a name, price, and quantity. 
+			console.log the total price of the items in the cart. */
+			const cartTotal = (carts) => {
 				let total = 0;
+				carts.forEach((item) => {
+					total = total + item.price * item.quantity;
+				});
+				console.log(total);
+			};
+			cartTotal([
+				{ name: 'Apple', price: 4, quantity: 2 },
+				{ name: 'Orange', price: 3, quantity: 3 },
+			]);
 
-				cartArray.forEach(function (cart) {
-					total = total + cart.price * cart.quantity;
+			/*Exercise 2
+			Create a <div id="receipt"></div>. Write a function displayReceipt 
+			that takes the same array of objects as exercise 1 and display a receipt using */
+
+			//Display receipt for each item
+			const receipt = document.getElementById('receipt');
+			let total = 0;
+			const displayReceipt = (cartArray) => {
+				cartArray.forEach((items) => {
+					const eachItem = document.createElement('div');
+					eachItem.innerText = `${items.name} $${items.price} x ${items.quantity} = $${items.price * items.quantity}`;
+					receipt.appendChild(eachItem);
+					total = total + items.price * items.quantity;
 				});
 				const itemTotal = document.createElement('div');
 				itemTotal.innerText = `Cart total = $${total}`;
-				receipt.append(itemTotal);
-			}
-			cartTotal([
+				receipt.appendChild(itemTotal);
+			};
+			displayReceipt([
 				{ name: 'Apple', price: 4, quantity: 2 },
 				{ name: 'Orange', price: 3, quantity: 3 },
 			]);
