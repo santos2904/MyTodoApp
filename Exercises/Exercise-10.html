@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Exercise 10</title>
+	</head>
+	<body>
+		<div id="receipt"></div>
+		<script>
+			function cartTotal(cartArray) {
+				let total = 0;
+
+				cartArray.forEach(function (cart) {
+					total = total + cart.price * cart.quantity;
+				});
+				const itemTotal = document.createElement('div');
+				itemTotal.innerText = `Cart total = $${total}`;
+				receipt.append(itemTotal);
+			}
+			cartTotal([
+				{ name: 'Apple', price: 4, quantity: 2 },
+				{ name: 'Orange', price: 3, quantity: 3 },
+			]);
+		</script>
+	</body>
+</html>
