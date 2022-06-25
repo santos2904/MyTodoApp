@@ -11,6 +11,68 @@
 		<input type="date" id="date-picker" />
 		<button onclick="addTodo()" class="button">Add Todo</button>
 		<div id="todo-list"></div>
-		<script src="script.js" />
+		<script>
+			const todos = [
+				{
+					title: 'Get groceries',
+					dueDate: '2022-06-22',
+					id: 'id1',
+				},
+				{
+					title: 'Clean bike',
+					dueDate: '2022-06-23',
+					id: 'id2',
+				},
+				{
+					title: 'Make dinner',
+					dueDate: '2022-06-24',
+					id: 'id3',
+				},
+			];
+
+			render();
+
+			const addTodo = () => {
+				const textbox = document.getElementById('text-box');
+				const title = textbox.value;
+
+				const datePicker = document.getElementById('date-picker');
+				const dueDate = datePicker.value;
+
+				const id = new Date().getTime();
+
+				todos.push({
+					title: title,
+					dueDate: dueDate,
+					id: id,
+				});
+				render();
+			};
+
+			function deleteTodo(event) {
+				const deleteButton = event.target;
+				const idToDelete = deleteButton.id;
+			}
+
+			function render() {
+				document.getElementById('todo-list').innerHTML = '';
+				todos.forEach((todo) => {
+					const element = document.createElement('div');
+					element.innerText = `${todo.title} ${todo.dueDate}`;
+
+					const deleteButton = document.createElement('button');
+					deleteButton.innerText = 'Delete';
+					deleteButton.style = 'color: red; margin-left: 12px;';
+					deleteButton.onclick = deleteTodo;
+					deleteButton.id = todo.id;
+					element.appendChild(deleteButton);
+
+					const todoList = document.getElementById('todo-list');
+					todoList.appendChild(element);
+				});
+			}
+
+			//coding L1F3
+		</script>
 	</body>
 </html>
