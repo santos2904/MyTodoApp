@@ -4,9 +4,41 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Exercise</title>
+		<title>Exercise 11</title>
 	</head>
 	<body>
-		<script></script>
+		<div id="total"></div>
+		<button id="reset">Reset</button>
+		<script>
+			let total = 0;
+			const createCart = (foodCost) => {
+				const items = Object.keys(foodCost);
+
+				items.forEach((item) => {
+					const cart = document.createElement('div');
+					const addBtn = document.createElement('button');
+					const price = foodCost[item];
+					cart.innerText = `${item} $${price} `;
+					addBtn.innerText = 'Add';
+
+					addBtn.onclick = () => {
+						total = total + price;
+						const totalDisplay = document.getElementById('total');
+						totalDisplay.innerText = `Total = $${total}`;
+						document.body.append(totalDisplay);
+					};
+
+					const resetBtn = document.getElementById('reset');
+					resetBtn.onclick = () => {
+						total = 0;
+						document.getElementById('total').innerText = `Total = $${total}`;
+					};
+
+					cart.appendChild(addBtn);
+					document.body.appendChild(cart);
+				});
+			};
+			createCart({ Apple: 3, Orange: 4, Egg: 2 });
+		</script>
 	</body>
 </html>
