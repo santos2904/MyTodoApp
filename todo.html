@@ -12,6 +12,7 @@
 		<button onclick="addTodo()" class="button">Add Todo</button>
 		<div id="todo-list"></div>
 		<script>
+			// MODEL
 			let todos = [
 				{
 					title: 'Get groceries',
@@ -32,13 +33,8 @@
 
 			render();
 
-			const addTodo = () => {
-				const textbox = document.getElementById('text-box');
-				const title = textbox.value;
-
-				const datePicker = document.getElementById('date-picker');
-				const dueDate = datePicker.value;
-
+			// Creates a todo
+			const createTodo = (title, dueDate) => {
 				const id = '' + new Date().getTime();
 
 				todos.push({
@@ -46,23 +42,39 @@
 					dueDate: dueDate,
 					id: id,
 				});
-				render();
 			};
 
-			function deleteTodo(event) {
-				const deleteButton = event.target;
-				const idToDelete = deleteButton.id;
-
-				todos = todos.filter(function (todo) {
+			// Deletes a todo
+			const removeTodo = (idToDelete) => {
+				todos = todos.filter((todo) => {
 					if (todo.id === idToDelete) {
 						return false;
 					} else {
 						return true;
 					}
 				});
+			};
+
+			// CONTROLLER
+			const addTodo = () => {
+				const textbox = document.getElementById('text-box');
+				const title = textbox.value;
+
+				const datePicker = document.getElementById('date-picker');
+				const dueDate = datePicker.value;
+
+				createTodo(title, dueDate);
+				render();
+			};
+
+			function deleteTodo(event) {
+				const deleteButton = event.target;
+				const idToDelete = deleteButton.id;
+				removeTodo(idToDelete);
 				render();
 			}
 
+			// VIEW
 			function render() {
 				document.getElementById('todo-list').innerHTML = '';
 				todos.forEach((todo) => {
