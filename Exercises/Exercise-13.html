@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Exercise 13</title>
+	</head>
+	<body>
+		<div id="numberArray" style="font-family: Arial, Helvetica, sans-serif; font-size: 14px"></div>
+		<script>
+			const max = (array) => {
+				let max = 0;
+				array.forEach((maxNum) => {
+					if (maxNum > max) {
+						max = maxNum;
+					}
+				});
+				return max;
+			};
+
+			//
+			const min = (array) => {
+				let min = 0;
+				array.forEach((minNum) => {
+					if (minNum < min) {
+						min = minNum;
+					}
+				});
+				return min;
+			};
+
+			const zeroOrAbove = (array) => {
+				let zero = 1337;
+				array.forEach((num) => {
+					if (num < 0) {
+						return;
+					} else if (num < zero) {
+						zero = num;
+					}
+				});
+				return zero;
+			};
+
+			//Exercise 4&5
+			const pickApples = (fruits) => {
+				const fruitsToRemove = ['apple', 'orange'];
+				const removeFruit = fruits.filter((fruit) => !fruitsToRemove.includes(fruit));
+				return removeFruit;
+			};
+
+			//Exercise 6
+			const pickLastApples = (fruits) => {
+				applesPicked = 0;
+				const reverseArray = fruits.reverse();
+				const removeFruits = reverseArray.filter((fruit) => {
+					if (applesPicked >= 2) {
+						return true;
+					} else if (fruit === 'apple') {
+						applesPicked += 1;
+						return false;
+					} else {
+						return true;
+					}
+				});
+				return removeFruits.reverse();
+			};
+
+			//render
+			const div = document.getElementById('numberArray');
+			div.innerText = `in [1, 5, -2, 4, 3, 5, 0]
+			max = ${max([1, 5, -2, 4, 3, 5, 0])}
+			min = ${min([1, 5, -2, 4, 3, 5, 0])}
+			zeroOrAbove = ${zeroOrAbove([1, 5, -2, 4, 3, 5, 0])}
+			Remove apples & oranges from this array ['cherry', 'apple', 'orange', 'apple', 'banana', 'apple'];
+			After removed = ${pickApples(['cherry', 'apple', 'orange', 'apple', 'banana', 'apple'])}
+			Remove last 2 apples from this array ['cherry', 'apple', 'orange', 'apple', 'banana', 'apple']
+			After removed = ${pickLastApples(['cherry', 'apple', 'orange', 'apple', 'banana', 'apple'])}`;
+		</script>
+	</body>
+</html>
