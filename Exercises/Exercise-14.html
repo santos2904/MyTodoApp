@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Exercise 14</title>
+	</head>
+	<body>
+		<input type="text" id="text-box" />
+		<input type="date" id="date-picker" />
+		<button onclick="addTodo()" class="button">Add Todo</button>
+		<div id="todo-list"></div>
+		<script>
+			// MODEL
+			let todos = [
+				{
+					title: 'Get groceries',
+					dueDate: '2022-06-22',
+					id: 'id1',
+				},
+				{
+					title: 'Clean bike',
+					dueDate: '2022-06-23',
+					id: 'id2',
+				},
+				{
+					title: 'Make dinner',
+					dueDate: '2022-06-24',
+					id: 'id3',
+				},
+			];
+
+			render();
+
+			// Creates a todo
+			const createTodo = (title, dueDate) => {
+				const id = '' + new Date().getTime();
+
+				todos.push({
+					title: title,
+					dueDate: dueDate,
+					id: id,
+				});
+			};
+
+			// Deletes a todo
+			const removeTodo = (idToDelete) => {
+				todos = todos.filter((todo) => {
+					if (todo.id === idToDelete) {
+						return false;
+					} else {
+						return true;
+					}
+				});
+			};
+
+			const toggleTodo = (todoId, checked) => {
+				todos.forEach((todo) => {
+					if (todo.id === todoId) {
+						todo.isDone = checked;
+					}
+				});
+			};
+
+			// CONTROLLER
+			const addTodo = () => {
+				const textbox = document.getElementById('text-box');
+				const title = textbox.value;
+
+				const datePicker = document.getElementById('date-picker');
+				const dueDate = datePicker.value;
+
+				createTodo(title, dueDate);
+				render();
+			};
+
+			function deleteTodo(event) {
+				const deleteButton = event.target;
+				const idToDelete = deleteButton.id;
+
+				removeTodo(idToDelete);
+				render();
+			}
+
+			function checkTodo(event) {
+				const checkbox = event.target;
+
+				const todoId = checkbox.dataset.todoId;
+				const checked = checkbox.checked;
+
+				toggleTodo(todoId, checked);
+				render();
+			}
+
+			// VIEW
+			function render() {
+				document.getElementById('todo-list').innerHTML = '';
+				todos.forEach((todo) => {
+					const element = document.createElement('div');
+					element.innerText = `${todo.title} ${todo.dueDate}`;
+
+					const checkbox = document.createElement('input');
+					checkbox.type = 'checkbox';
+					checkbox.onchange = checkTodo;
+					checkbox.dataset.todoId = todo.id;
+					if (todo.isDone === true) {
+						checkbox.checked = true;
+					} else {
+						checkbox.checked = false;
+					}
+					element.prepend(checkbox);
+
+					const deleteButton = document.createElement('button');
+					deleteButton.innerText = 'Delete';
+					deleteButton.style = 'color: red; margin-left: 12px;';
+					deleteButton.onclick = deleteTodo;
+					deleteButton.id = todo.id;
+					element.appendChild(deleteButton);
+
+					const todoList = document.getElementById('todo-list');
+					todoList.appendChild(element);
+				});
+			}
+		</script>
+	</body>
+</html>
