@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Exercise 15</title>
+	</head>
+	<body>
+		<input type="text" id="text-box" />
+		<input type="date" id="date-picker" />
+		<button onclick="addTodo()" class="button">Add Todo</button>
+		<div id="todo-list"></div>
+		<script>
+			// MODEL
+			// If local storage has a todos array, then use it
+			// Otherwise use default array
+			let todos;
+
+			// Retrieve localStorage
+			const savedTodos = JSON.parse(localStorage.getItem('todos'));
+			if (Array.isArray(savedTodos)) {
+				todos = savedTodos;
+			} else {
+				todos = [
+					{
+						title: 'Get groceries',
+						dueDate: '2022-06-22',
+						id: 'id1',
+					},
+					{
+						title: 'Clean bike',
+						dueDate: '2022-06-23',
+						id: 'id2',
+					},
+					{
+						title: 'Make dinner',
+						dueDate: '2022-06-24',
+						id: 'id3',
+					},
+				];
+			}
+
+			// Creates a todo
+			const createTodo = (title, dueDate) => {
+				const id = '' + new Date().getTime();
+
+				todos.push({
+					title: title,
+					dueDate: dueDate,
+					id: id,
+				});
+				saveTodos();
+			};
+
+			// Deletes a todo
+			const removeTodo = (idToDelete) => {
+				todos = todos.filter((todo) => {
+					if (todo.id === idToDelete) {
+						return false;
+					} else {
+						return true;
+					}
+				});
+				saveTodos();
+			};
+
+			const setEditing = (todoId) => {
+				todos.forEach((todo) => {
+					if (todo.id === todoId) {
+						todo.isEditing = true;
+					}
+				});
+				saveTodos();
+			};
+
+			const updateTodo = (todoId, newTitle, newDate) => {
+				todos.forEach((todo) => {
+					if (todo.id === todoId) {
+						todo.title = newTitle;
+						todo.dueDate = newDate;
+						todo.isEditing = false;
+					}
+				});
+				saveTodos();
+			};
+
+			function saveTodos() {
+				localStorage.setItem('todos', JSON.stringify(todos));
+			}
+
+			// CONTROLLER
+			const addTodo = () => {
+				const textbox = document.getElementById('text-box');
+				const title = textbox.value;
+
+				const datePicker = document.getElementById('date-picker');
+				const dueDate = datePicker.value;
+
+				createTodo(title, dueDate);
+				render();
+			};
+
+			function deleteTodo(event) {
+				const deleteButton = event.target;
+				const idToDelete = deleteButton.id;
+				removeTodo(idToDelete);
+				render();
+			}
+
+			const onEdit = (event) => {
+				const editButton = event.target;
+				const todoId = editButton.dataset.todoId;
+
+				setEditing(todoId);
+				render();
+			};
+
+			const onUpdate = (event) => {
+				const updateButton = event.target;
+				const todoId = updateButton.dataset.todoId;
+
+				const textbox = document.getElementById('edit-title- ' + todoId);
+				const newTitle = textbox.value;
+
+				const datePicker = document.getElementById('edit-date- ' + todoId);
+				const newDate = datePicker.value;
+
+				updateTodo(todoId, newTitle, newDate);
+				render();
+			};
+
+			// VIEW
+			function render() {
+				document.getElementById('todo-list').innerHTML = '';
+
+				todos.forEach((todo) => {
+					const element = document.createElement('div');
+
+					if (todo.isEditing === true) {
+						const textbox = document.createElement('input');
+						textbox.type = 'text';
+						textbox.id = 'edit-title- ' + todo.id;
+						element.appendChild(textbox);
+
+						const datePicker = document.createElement('input');
+						datePicker.type = 'date';
+						datePicker.id = 'edit-date- ' + todo.id;
+						element.appendChild(datePicker);
+
+						const updateButton = document.createElement('button');
+						updateButton.innerText = 'Update';
+						updateButton.dataset.todoId = todo.id;
+						updateButton.onclick = onUpdate;
+						element.appendChild(updateButton);
+					} else {
+						element.innerText = `${todo.title} ${todo.dueDate}`;
+
+						const editButton = document.createElement('button');
+						editButton.innerText = 'Edit';
+						editButton.style = 'margin-left: 12px;';
+						editButton.onclick = onEdit;
+						editButton.dataset.todoId = todo.id;
+						element.appendChild(editButton);
+
+						const deleteButton = document.createElement('button');
+						deleteButton.innerText = 'Delete';
+						deleteButton.style = 'color: red; margin-left: 12px;';
+						deleteButton.onclick = deleteTodo;
+						deleteButton.id = todo.id;
+						element.appendChild(deleteButton);
+					}
+
+					const todoList = document.getElementById('todo-list');
+					todoList.appendChild(element);
+				});
+			}
+			render();
+		</script>
+	</body>
+</html>
