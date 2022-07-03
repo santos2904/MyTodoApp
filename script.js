@@ -40,8 +40,8 @@ const createTodo = (title, dueDate) => {
 };
 
 // Deletes a todo
-const removeTodo = (idToDelete) => {
-	todos = todos.filter((todo) => {
+const removeTodo = idToDelete => {
+	todos = todos.filter(todo => {
 		if (todo.id === idToDelete) {
 			return false;
 		} else {
@@ -51,9 +51,9 @@ const removeTodo = (idToDelete) => {
 	saveTodos();
 };
 
-function saveTodos() {
+const saveTodos = () => {
 	localStorage.setItem('todos', JSON.stringify(todos));
-}
+};
 
 // CONTROLLER
 const addTodo = () => {
@@ -67,26 +67,33 @@ const addTodo = () => {
 	render();
 };
 
-function deleteTodo(event) {
+/*function deleteTodo(event) {
 	const deleteButton = event.target;
 	const idToDelete = deleteButton.id;
 	removeTodo(idToDelete);
 	render();
-}
+}*/
+
+const onDelete = todoToDelete => {
+	return () => {
+		removeTodo(todoToDelete.id);
+		render();
+	};
+};
 
 // VIEW
 function render() {
 	document.getElementById('todo-list').innerHTML = '';
 
-	todos.forEach((todo) => {
+	todos.forEach(todo => {
 		const element = document.createElement('div');
 		element.innerText = `${todo.title} ${todo.dueDate}`;
 
 		const deleteButton = document.createElement('button');
 		deleteButton.innerText = 'Delete';
 		deleteButton.style = 'color: red; margin-left: 12px;';
-		deleteButton.onclick = deleteTodo;
-		deleteButton.id = todo.id;
+
+		deleteButton.onclick = onDelete(todo);
 		element.appendChild(deleteButton);
 
 		const todoList = document.getElementById('todo-list');
